@@ -13,7 +13,7 @@ It plays the "Peace and Tranquility" video from A Hat in Time on loop — nothin
 It's just a VideoView that plays the video, combined with code that makes it full screen.
 
 ## What does it run on?
-It'll run on anything that can run Android 10 or later.
+It'll run on anything that can run Android 6 or later.
 
 ## Are there controls for the video?
 Nope! That's the beauty of it.

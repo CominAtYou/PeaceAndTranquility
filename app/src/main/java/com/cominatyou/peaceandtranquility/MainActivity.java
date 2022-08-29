@@ -1,12 +1,13 @@
 package com.cominatyou.peaceandtranquility;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.cominatyou.peaceandtranquility.databinding.ActivityMainBinding;
 
@@ -20,17 +21,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.getRoot().setBackgroundColor(getColor(android.R.color.black));
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.getInsetsController(getWindow(), binding.getRoot()).hide(WindowInsetsCompat.Type.systemBars());
+        WindowCompat.getInsetsController(getWindow(), binding.getRoot()).setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Account for display cutouts
-            // this will center the video in the middle of the screen if there is a cutout
-            getWindow().setDecorFitsSystemWindows(false);
-            getWindow().getInsetsController().hide(WindowInsets.Type.systemBars());
-            getWindow().getInsetsController().setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-        }
-        else {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
 
         binding.video.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.peace_and_tranquility);
